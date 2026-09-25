@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIFT | Agência Digital</title>
+    <meta name="description" content="Transformamos ideias em experiências digitais extraordinárias. Agência digital premium focada em inovação e performance.">
+    
+    <!-- Link para a folha de estilos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 
+      Header fixo com navegação
+      Utilizamos HTML semântico para melhor acessibilidade e SEO
+    -->
+    <header id="header" class="header">
+        <div class="container header-container">
+            <!-- Logo e Subtítulo -->
+            <a href="#" class="logo-area" aria-label="Voltar ao início">
+                <span class="logo">SHIFT</span>
+                <span class="logo-subtitle">Agência Digital</span>
+            </a>
+
+            <!-- Navegação principal -->
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="#servicos" class="nav-link">Serviços</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfólio</a></li>
+                    <li><a href="#processo" class="nav-link">Processo</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+
+            <!-- Ações do Header (Tema e CTA) -->
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Alternar tema claro/escuro">
+                    <!-- Ícone Sol (Light) -->
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <!-- Ícone Lua (Dark) -->
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <a href="#contato" class="btn btn-primary">Orçamento</a>
+                
+                <!-- Botão Menu Mobile -->
+                <button class="mobile-menu-btn" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero section">
+            <div class="hero-glow"></div> <!-- Elemento visual de brilho tecnológico -->
+            <div class="container hero-container reveal">
+                <span class="badge">Inovação e Tecnologia</span>
+                <h1 class="hero-title">Transformamos ideias em <span class="text-gradient">experiências digitais</span> extraordinárias.</h1>
+                <p class="hero-subtitle">Somos a SHIFT, uma agência digital premium focada em desenvolver soluções web de alta performance, design estratégico e escalabilidade para o seu negócio.</p>
+                <div class="hero-buttons">
+                    <a href="#contato" class="btn btn-primary btn-lg">Solicitar Orçamento</a>
+                    <a href="#servicos" class="btn btn-outline btn-lg">Conhecer Serviços</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Sobre -->
+        <section id="sobre" class="section">
+            <div class="container reveal">
+                <div class="section-header">
+                    <h2>Sobre a SHIFT</h2>
+                    <p>Elevando o padrão do desenvolvimento digital.</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Nossa Missão</h3>
+                        <p>Capacitar empresas através de tecnologia de ponta e design excepcional. Não apenas construímos sites; criamos ecossistemas digitais robustos, preparados para escalar e converter.</p>
+                        <h3>Visão</h3>
+                        <p>Ser a referência global em excelência digital, equiparando a qualidade do mercado corporativo às gigantes da tecnologia mundial.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Serviços -->
+        <section id="servicos" class="section bg-alt">
+            <div class="container reveal">
+                <div class="section-header text-center">
+                    <h2>Nossos Serviços</h2>
+                    <p>Soluções completas para sua presença digital.</p>
+                </div>
+                <div class="grid cards-grid">
+                    <!-- Cards de Serviços criados com estrutura limpa -->
+                    <div class="card">
+                        <div class="card-icon">💻</div>
+                        <h3>Desenvolvimento de Sites</h3>
+                        <p>Sites institucionais ultra-rápidos, responsivos e otimizados para motores de busca (SEO).</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📱</div>
+                        <h3>Aplicativos Mobile</h3>
+                        <p>Apps nativos e híbridos projetados para engajar usuários em iOS e Android.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⚙️</div>
+                        <h3>Sistemas Web</h3>
+                        <p>Aplicações complexas, painéis administrativos e plataformas SaaS escaláveis.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🚀</div>
+                        <h3>Landing Pages</h3>
+                        <p>Páginas de alta conversão focadas em campanhas de marketing e geração de leads.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🛒</div>
+                        <h3>E-commerce</h3>
+                        <p>Lojas virtuais robustas e seguras, focadas em maximizar vendas e performance.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">✨</div>
+                        <h3>UX/UI Design</h3>
+                        <p>Interfaces modernas, intuitivas e focadas na melhor experiência do usuário.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diferenciais -->
+        <section id="diferenciais" class="section">
+            <div class="container reveal">
+                <div class="section-header text-center">
+                    <h2>Nossos Diferenciais</h2>
+                    <p>Por que os líderes escolhem a SHIFT.</p>
+                </div>
+                <div class="grid diff-grid">
+                    <div class="diff-item">
+                        <h4>⚡ Alta Performance</h4>
+                        <p>Código limpo e otimizado garantindo tempos de carregamento na casa dos milissegundos.</p>
+                    </div>
+                    <div class="diff-item">
+                        <h4>🔍 SEO Otimizado</h4>
+                        <p>Estrutura semântica rigorosa para máximo ranqueamento orgânico no Google.</p>
+                    </div>
+                    <div class="diff-item">
+                        <h4>🎯 Design Estratégico</h4>
+                        <p>Layouts baseados em dados e comportamento do usuário para gerar conversões.</p>
+                    </div>
+                    <div class="diff-item">
+                        <h4>📈 Escalabilidade</h4>
+                        <p>Arquitetura preparada para crescer junto com o tráfego do seu negócio.</p>
+                    </div>
+                    <div class="diff-item">
+                        <h4>🔒 Segurança</h4>
+                        <p>Práticas modernas de proteção contra vulnerabilidades e ataques.</p>
+                    </div>
+                    <div class="diff-item">
+                        <h4>🤝 Suporte Especializado</h4>
+                        <p>Acompanhamento contínuo e SLA rigoroso para manutenção dos projetos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfólio -->
+        <section id="portfolio" class="section bg-alt">
+            <div class="container reveal">
+                <div class="section-header">
+                    <h2>Portfólio</h2>
+                    <p>Projetos recentes que transformaram marcas.</p>
+                </div>
+                <div class="grid portfolio-grid">
+                    <!-- Projeto 1 -->
+                    <div class="portfolio-card">
+                        <div class="portfolio-img bg-placeholder-1"></div>
+                        <div class="portfolio-content">
+                            <span class="portfolio-category">Fintech</span>
+                            <h3>Nexus Pay</h3>
+                            <p>Redesign completo da plataforma web e app móvel, focando em usabilidade e confiança.</p>
+                        </div>
+                    </div>
+                    <!-- Projeto 2 -->
+                    <div class="portfolio-card">
+                        <div class="portfolio-img bg-placeholder-2"></div>
+                        <div class="portfolio-content">
+                            <span class="portfolio-category">SaaS</span>
+                            <h3>Flow Manager</h3>
+                            <p>Sistema web para gestão de recursos humanos com dashboard em tempo real.</p>
+                        </div>
+                    </div>
+                    <!-- Projeto 3 -->
+                    <div class="portfolio-card">
+                        <div class="portfolio-img bg-placeholder-3"></div>
+                        <div class="portfolio-content">
+                            <span class="portfolio-category">E-commerce</span>
+                            <h3>Aura Cosmetics</h3>
+                            <p>Loja virtual premium com experiência de compra imersiva e checkout otimizado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Processo de Trabalho -->
+        <section id="processo" class="section">
+            <div class="container reveal">
+                <div class="section-header text-center">
+                    <h2>Processo de Trabalho</h2>
+                    <p>Metodologia ágil e transparente, do início ao fim.</p>
+                </div>
+                <div class="process-wrapper">
+                    <div class="process-step"><span>1</span> Descoberta</div>
+                    <div class="process-step"><span>2</span> Planejamento</div>
+                    <div class="process-step"><span>3</span> Design</div>
+                    <div class="process-step"><span>4</span> Desenvolvimento</div>
+                    <div class="process-step"><span>5</span> Testes</div>
+                    <div class="process-step"><span>6</span> Lançamento</div>
+                    <div class="process-step"><span>7</span> Suporte</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estatísticas (Contadores) -->
+        <section id="estatisticas" class="section stats-section">
+            <div class="container reveal">
+                <div class="grid stats-grid">
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="500">0</h3>
+                        <span>+</span>
+                        <p>Projetos Entregues</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="300">0</h3>
+                        <span>+</span>
+                        <p>Clientes Atendidos</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="99">0</h3>
+                        <span>%</span>
+                        <p>Taxa de Satisfação</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="10">0</h3>
+                        <span>+</span>
+                        <p>Anos de Experiência</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Depoimentos -->
+        <section id="depoimentos" class="section bg-alt">
+            <div class="container reveal">
+                <div class="section-header text-center">
+                    <h2>O que dizem sobre nós</h2>
+                </div>
+                <div class="grid testimonial-grid">
+                    <div class="testimonial-card">
+                        <p>"A SHIFT entregou nosso sistema web na metade do prazo, com uma qualidade de código absurda. O visual é digno de Vale do Silício."</p>
+                        <div class="author">
+                            <strong>Carlos Almeida</strong>
+                            <span>CTO, TechNova</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Nossas conversões dobraram após o lançamento do novo e-commerce. A atenção aos detalhes e o suporte da equipe são incomparáveis."</p>
+                        <div class="author">
+                            <strong>Mariana Silva</strong>
+                            <span>CEO, ModaPremium</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section id="cta" class="section cta-section text-center">
+            <div class="container reveal">
+                <h2>Pronto para iniciar seu projeto?</h2>
+                <p>Vamos construir algo incrível juntos e elevar o nível da sua presença digital.</p>
+                <a href="#contato" class="btn btn-primary btn-lg">Fale com um Especialista</a>
+            </div>
+        </section>
+
+        <!-- Contato -->
+        <section id="contato" class="section">
+            <div class="container reveal">
+                <div class="section-header">
+                    <h2>Entre em Contato</h2>
+                    <p>Preencha o formulário abaixo e retornaremos rapidamente.</p>
+                </div>
+                <div class="contact-form-container">
+                    <form id="contactForm" class="form" novalidate>
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                            <span class="error-message">Por favor, insira seu nome.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail Corporativo</label>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                            <span class="error-message">Insira um e-mail válido.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefone">Telefone</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                            <span class="error-message">Por favor, insira seu telefone.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="empresa">Empresa</label>
+                            <input type="text" id="empresa" name="empresa" placeholder="Nome da empresa">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" rows="5" placeholder="Como podemos ajudar?" required></textarea>
+                            <span class="error-message">Por favor, digite uma mensagem.</span>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-primary btn-block">Enviar Mensagem</button>
+                        </div>
+                        <div id="formSuccess" class="form-success-msg hidden">Mensagem enviada com sucesso! Entraremos em contato em breve.</div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="logo">SHIFT</div>
+                <div class="logo-subtitle">Agência Digital</div>
+                <p class="mt-2">Transformando o futuro digital de empresas que buscam excelência.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#portfolio">Portfólio</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Redes Sociais</h4>
+                <ul>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter/X</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container text-center">
+                <p>&copy; <span id="currentYear"></span> SHIFT Agência Digital. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <!-- Link para o arquivo JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
