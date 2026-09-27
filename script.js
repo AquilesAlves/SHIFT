@@ -9,243 +9,233 @@ document.addEventListener('DOMContentLoaded', function () {
      1. TEMA CLARO / ESCURO
      - Detecta preferência do sistema no primeiro acesso
      - Salva a escolha do usuário no LocalStorage
-     - Alterna o atributo data-theme no <html>
+     - Alterna o atributo data-tema no <html>
   ------------------------------------------------------------------ */
-  var htmlEl = document.documentElement;
-  var themeToggle = document.getElementById('themeToggle');
-  var THEME_KEY = 'shift-theme';
+  var elementoHtml = document.documentElement;
+  var alternarTema = document.getElementById('alternarTema');
+  var CHAVE_TEMA = 'shift-tema';
+  var abrirPaleta = document.getElementById('abrirPaleta');
+  var opcoesCores = document.getElementById('opcoesCores');
+  var opcoesCor = document.querySelectorAll('.opcao-cor');
+  var CHAVE_COR = 'shift-cor';
 
-  function applyTheme(theme) {
-    htmlEl.setAttribute('data-theme', theme);
-    themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  function aplicarTema(tema) {
+    elementoHtml.setAttribute('data-tema', tema);
+    alternarTema.setAttribute('aria-pressed', tema === 'dark' ? 'true' : 'false');
   }
 
-  function getInitialTheme() {
-    var saved = localStorage.getItem(THEME_KEY);
-    if (saved === 'light' || saved === 'dark') return saved;
-    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return prefersDark ? 'dark' : 'light';
+  function obterTemaInicial() {
+    var temaSalvo = localStorage.getItem(CHAVE_TEMA);
+    if (temaSalvo === 'light' || temaSalvo === 'dark') return temaSalvo;
+    var prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefereEscuro ? 'dark' : 'light';
   }
 
-  applyTheme(getInitialTheme());
+  aplicarTema(obterTemaInicial());
 
-  themeToggle.addEventListener('click', function () {
-    var current = htmlEl.getAttribute('data-theme');
-    var next = current === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    localStorage.setItem(THEME_KEY, next);
+  function aplicarCor(cor) {
+    elementoHtml.setAttribute('data-cor', cor);
+    opcoesCor.forEach(function (opcao) {
+      var estaSelecionada = opcao.getAttribute('data-cor') === cor;
+      opcao.classList.toggle('esta-selecionada', estaSelecionada);
+      opcao.setAttribute('aria-pressed', estaSelecionada ? 'true' : 'false');
+    });
+  }
+
+  function obterCorInicial() {
+    var corSalva = localStorage.getItem(CHAVE_COR);
+    var coresDisponiveis = ['azul', 'vermelho', 'verde', 'amarelo', 'monocromatico'];
+    return coresDisponiveis.indexOf(corSalva) > -1 ? corSalva : 'azul';
+  }
+
+  aplicarCor(obterCorInicial());
+
+  alternarTema.addEventListener('click', function () {
+    var temaAtual = elementoHtml.getAttribute('data-tema');
+    var proximoTema = temaAtual === 'dark' ? 'light' : 'dark';
+    aplicarTema(proximoTema);
+    localStorage.setItem(CHAVE_TEMA, proximoTema);
+  });
+
+  abrirPaleta.addEventListener('click', function () {
+    var estaAberta = opcoesCores.classList.toggle('esta-aberta');
+    abrirPaleta.setAttribute('aria-expanded', estaAberta ? 'true' : 'false');
+  });
+
+  opcoesCor.forEach(function (opcao) {
+    opcao.addEventListener('click', function () {
+      var cor = this.getAttribute('data-cor');
+      aplicarCor(cor);
+      localStorage.setItem(CHAVE_COR, cor);
+      opcoesCores.classList.remove('esta-aberta');
+      abrirPaleta.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', function (evento) {
+    if (!evento.target.closest('.seletor-paleta')) {
+      opcoesCores.classList.remove('esta-aberta');
+      abrirPaleta.setAttribute('aria-expanded', 'false');
+    }
   });
 
   /* ------------------------------------------------------------------
      2. MENU MOBILE
   ------------------------------------------------------------------ */
-  var menuToggle = document.getElementById('menuToggle');
-  var nav = document.getElementById('nav');
+  var alternarMenu = document.getElementById('alternarMenu');
+  var navegacao = document.getElementById('navegacao');
 
-  menuToggle.addEventListener('click', function () {
-    var isOpen = nav.classList.toggle('is-open');
-    menuToggle.classList.toggle('is-open', isOpen);
-    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  alternarMenu.addEventListener('click', function () {
+    var estaAberto = navegacao.classList.toggle('esta-aberto');
+    alternarMenu.classList.toggle('esta-aberto', estaAberto);
+    alternarMenu.setAttribute('aria-expanded', estaAberto ? 'true' : 'false');
+    alternarMenu.setAttribute('aria-label', estaAberto ? 'Fechar menu' : 'Abrir menu');
   });
 
   // Fecha o menu mobile ao clicar em um link
-  document.querySelectorAll('.nav__link').forEach(function (link) {
-    link.addEventListener('click', function () {
-      nav.classList.remove('is-open');
-      menuToggle.classList.remove('is-open');
-      menuToggle.setAttribute('aria-expanded', 'false');
+  document.querySelectorAll('.navegacao__link').forEach(function (ligacao) {
+    ligacao.addEventListener('click', function () {
+      navegacao.classList.remove('esta-aberto');
+      alternarMenu.classList.remove('esta-aberto');
+      alternarMenu.setAttribute('aria-expanded', 'false');
     });
   });
 
   /* ------------------------------------------------------------------
-     3. HEADER DINÂMICO AO ROLAR + BOTÃO VOLTAR AO TOPO
+     3. cabecalho DINÂMICO AO ROLAR + BOTÃO VOLTAR AO TOPO
   ------------------------------------------------------------------ */
-  var header = document.getElementById('header');
-  var backToTop = document.getElementById('backToTop');
+  var cabecalho = document.getElementById('cabecalho');
+  var voltarAoTopo = document.getElementById('voltarAoTopo');
 
-  function onScroll() {
-    var scrollY = window.scrollY || window.pageYOffset;
-    header.classList.toggle('is-scrolled', scrollY > 10);
-    backToTop.classList.toggle('is-visible', scrollY > 400);
-    updateActiveNavLink();
+  function aoRolar() {
+    var posicaoRolagemY = window.scrollY || window.pageYOffset;
+    cabecalho.classList.toggle('esta-rolado', posicaoRolagemY > 10);
+    voltarAoTopo.classList.toggle('esta-visivel', posicaoRolagemY > 400);
+    atualizarLinkNavegacaoAtivo();
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', aoRolar, { passive: true });
 
-  backToTop.addEventListener('click', function () {
+  voltarAoTopo.addEventListener('click', function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   /* ------------------------------------------------------------------
      4. SCROLL SUAVE PARA ÂNCORAS INTERNAS
   ------------------------------------------------------------------ */
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var targetId = this.getAttribute('href');
-      if (targetId.length < 2) return;
-      var target = document.querySelector(targetId);
-      if (!target) return;
-      e.preventDefault();
-      var headerHeight = header.offsetHeight;
-      var top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight + 1;
-      window.scrollTo({ top: top, behavior: 'smooth' });
+  document.querySelectorAll('a[href^="#"]').forEach(function (ancora) {
+    ancora.addEventListener('click', function (evento) {
+      var idDestino = this.getAttribute('href');
+      if (idDestino.length < 2) return;
+      var destino = document.querySelector(idDestino);
+      if (!destino) return;
+      evento.preventDefault();
+      var alturaCabecalho = cabecalho.offsetHeight;
+      var posicaoTopo = destino.getBoundingClientRect().top + window.pageYOffset - alturaCabecalho + 1;
+      window.scrollTo({ top: posicaoTopo, behavior: 'smooth' });
     });
   });
 
   /* ------------------------------------------------------------------
      5. DESTAQUE AUTOMÁTICO DO ITEM ATIVO DO MENU
   ------------------------------------------------------------------ */
-  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav__link'));
+  var secoes = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var linksNavegacao = Array.prototype.slice.call(document.querySelectorAll('.navegacao__link'));
 
-  function updateActiveNavLink() {
-    var scrollPos = window.scrollY + header.offsetHeight + 40;
-    var currentId = null;
+  function atualizarLinkNavegacaoAtivo() {
+    var posicaoRolagem = window.scrollY + cabecalho.offsetHeight + 40;
+    var idAtual = null;
 
-    sections.forEach(function (section) {
-      if (scrollPos >= section.offsetTop) {
-        currentId = section.id;
+    secoes.forEach(function (secao) {
+      if (posicaoRolagem >= secao.offsetTop) {
+        idAtual = secao.id;
       }
     });
 
-    navLinks.forEach(function (link) {
-      var isActive = link.getAttribute('href') === '#' + currentId;
-      link.classList.toggle('is-active', isActive);
+    linksNavegacao.forEach(function (ligacao) {
+      var estaAtivo = ligacao.getAttribute('href') === '#' + idAtual;
+      ligacao.classList.toggle('esta-ativo', estaAtivo);
     });
   }
+
+  // Executa depois que as seções e os links do menu foram definidos.
+  aoRolar();
 
   /* ------------------------------------------------------------------
-     6. CONTADORES ANIMADOS (estatísticas)
+     6. CONTADORES ANIMADOS (eestatisticaísticas)
      Só é iniciado quando a seção entra na tela (IntersectionObserver)
   ------------------------------------------------------------------ */
-  var statNumbers = document.querySelectorAll('.stat__number');
+  var numerosEstatisticas = document.querySelectorAll('.estatistica__numero');
 
-  function animateCounter(el) {
-    var target = parseInt(el.getAttribute('data-count'), 10) || 0;
-    var duration = 1400;
-    var startTime = null;
+  function animarContador(elemento) {
+    var meta = parseInt(elemento.getAttribute('data-contagem'), 10) || 0;
+    var duracao = 1400;
+    var tempoInicial = null;
 
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      var progress = Math.min((timestamp - startTime) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-      el.textContent = Math.floor(eased * target);
-      if (progress < 1) {
-        requestAnimationFrame(step);
+    function etapa(marcaTempo) {
+      if (!tempoInicial) tempoInicial = marcaTempo;
+      var progresso = Math.min((marcaTempo - tempoInicial) / duracao, 1);
+      var progressoSuave = 1 - Math.pow(1 - progresso, 3); // ease-out cubic
+      elemento.textContent = Math.floor(progressoSuave * meta);
+      if (progresso < 1) {
+        requestAnimationFrame(etapa);
       } else {
-        el.textContent = target;
+        elemento.textContent = meta;
       }
     }
-    requestAnimationFrame(step);
+    requestAnimationFrame(etapa);
   }
 
-  var statsObserver = new IntersectionObserver(function (entries, observer) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        statNumbers.forEach(animateCounter);
-        observer.disconnect();
+  var observadorEstatisticas = new IntersectionObserver(function (entradas, observador) {
+    entradas.forEach(function (entrada) {
+      if (entrada.isIntersecting) {
+        numerosEstatisticas.forEach(animarContador);
+        observador.disconnect();
       }
     });
   }, { threshold: 0.4 });
 
-  var statsSection = document.querySelector('.stats');
-  if (statsSection) statsObserver.observe(statsSection);
+  var secaoEstatisticas = document.querySelector('.estatisticas');
+  if (secaoEstatisticas) observadorEstatisticas.observe(secaoEstatisticas);
 
   /* ------------------------------------------------------------------
-     7. ANIMAÇÕES AO ENTRAR NA TELA (scroll reveal)
-     Adiciona a classe "reveal" via JS aos blocos principais
+     7. ANIMAÇÕES AO ENTRAR NA TELA (scroll revelar)
+     Adiciona a classe "revelar" via JS aos blocos principais
      e revela quando entram no viewport.
   ------------------------------------------------------------------ */
-  var revealTargets = document.querySelectorAll(
-    '.service-card, .feature, .portfolio-card, .testimonial, .about__text, .about__visual, .process-list li'
+  var elementosRevelar = document.querySelectorAll(
+    '.cartao-servico, .diferencial, .cartao-portifolio, .depoimento, .sobre__texto, .sobre__visual, .lista-processo li'
   );
 
-  revealTargets.forEach(function (el) { el.classList.add('reveal'); });
+  elementosRevelar.forEach(function (elemento) { elemento.classList.add('revelar'); });
 
-  var revealObserver = new IntersectionObserver(function (entries, observer) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+  var observadorRevelar = new IntersectionObserver(function (entradas, observador) {
+    entradas.forEach(function (entrada) {
+      if (entrada.isIntersecting) {
+        entrada.target.classList.add('esta-visivel');
+        observador.unobserve(entrada.target);
       }
     });
   }, { threshold: 0.15 });
 
-  revealTargets.forEach(function (el) { revealObserver.observe(el); });
+  elementosRevelar.forEach(function (elemento) { observadorRevelar.observe(elemento); });
 
   /* ------------------------------------------------------------------
-     8. VALIDAÇÃO DO FORMULÁRIO DE CONTATO
+     8. DESTAQUE DO WHATSAPP NA PRIMEIRA VISITA
   ------------------------------------------------------------------ */
-  var form = document.getElementById('contactForm');
-  var formSuccess = document.getElementById('formSuccess');
+  var botaoWhatsapp = document.querySelector('.botao-whatsapp');
+  var CHAVE_DESTAQUE_WHATSAPP = 'shift-destaque-whatsapp';
 
-  var fields = {
-    name: { input: document.getElementById('name'), error: document.getElementById('nameError') },
-    email: { input: document.getElementById('email'), error: document.getElementById('emailError') },
-    phone: { input: document.getElementById('phone'), error: document.getElementById('phoneError') },
-    message: { input: document.getElementById('message'), error: document.getElementById('messageError') }
-  };
-
-  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  var phoneRegex = /^[0-9()+\-.\s]{8,20}$/;
-
-  function setFieldError(field, message) {
-    field.input.closest('.form__field').classList.toggle('has-error', Boolean(message));
-    field.error.textContent = message || '';
+  if (botaoWhatsapp && !localStorage.getItem(CHAVE_DESTAQUE_WHATSAPP)) {
+    botaoWhatsapp.classList.add('chamar-atencao');
+    localStorage.setItem(CHAVE_DESTAQUE_WHATSAPP, 'true');
+    setTimeout(function () { botaoWhatsapp.classList.remove('chamar-atencao'); }, 3200);
   }
-
-  function validateField(key) {
-    var field = fields[key];
-    var value = field.input.value.trim();
-
-    if (!value) {
-      setFieldError(field, 'Este campo é obrigatório.');
-      return false;
-    }
-
-    if (key === 'email' && !emailRegex.test(value)) {
-      setFieldError(field, 'Digite um e-mail válido.');
-      return false;
-    }
-
-    if (key === 'phone' && !phoneRegex.test(value)) {
-      setFieldError(field, 'Digite um telefone válido.');
-      return false;
-    }
-
-    setFieldError(field, '');
-    return true;
-  }
-
-  // Validação em tempo real ao sair do campo
-  Object.keys(fields).forEach(function (key) {
-    fields[key].input.addEventListener('blur', function () { validateField(key); });
-  });
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    var isValid = Object.keys(fields).map(validateField).every(Boolean);
-
-    if (!isValid) {
-      formSuccess.hidden = true;
-      return;
-    }
-
-    // Simulação de envio (sem backend integrado neste projeto)
-    formSuccess.hidden = false;
-    form.reset();
-    Object.keys(fields).forEach(function (key) { setFieldError(fields[key], ''); });
-
-    setTimeout(function () { formSuccess.hidden = true; }, 6000);
-  });
 
   /* ------------------------------------------------------------------
      9. ANO ATUAL NO RODAPÉ
   ------------------------------------------------------------------ */
-  var yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  var elementoAno = document.getElementById('ano');
+  if (elementoAno) elementoAno.textContent = new Date().getFullYear();
 
 });

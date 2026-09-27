@@ -23,36 +23,48 @@
 <body>
 
   <!-- Botão de acessibilidade: pular para o conteúdo -->
-  <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+  <a class="link-pular" href="#inicio">Pular para o conteúdo</a>
 
   <!-- ===================== HEADER ===================== -->
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="#inicio" class="logo" aria-label="SHIFT — página inicial">
-        <span class="logo__mark">S</span>
-        <span class="logo__text">SHIFT<small>Agência Digital</small></span>
+  <header class="cabecalho" id="cabecalho">
+    <div class="conteiner cabecalho__interno">
+      <a href="#inicio" class="marca" aria-label="SHIFT — página inicial">
+        <span class="marca__simbolo">S</span>
+        <span class="marca__texto">SHIFT<small>Agência Digital</small></span>
       </a>
 
-      <nav class="nav" id="nav" aria-label="Navegação principal">
-        <ul class="nav__list">
-          <li><a href="#sobre" class="nav__link">Sobre</a></li>
-          <li><a href="#servicos" class="nav__link">Serviços</a></li>
-          <li><a href="#diferenciais" class="nav__link">Diferenciais</a></li>
-          <li><a href="#portfolio" class="nav__link">Portfólio</a></li>
-          <li><a href="#processo" class="nav__link">Processo</a></li>
-          <li><a href="#contato" class="nav__link">Contato</a></li>
+      <nav class="navegacao" id="navegacao" aria-label="Navegação principal">
+        <ul class="navegacao__lista">
+          <li><a href="#sobre" class="navegacao__link">Sobre</a></li>
+          <li><a href="#servicos" class="navegacao__link">Serviços</a></li>
+          <li><a href="#diferenciais" class="navegacao__link">Diferenciais</a></li>
+          <li><a href="#portifolio" class="navegacao__link">Portfólio</a></li>
+          <li><a href="#processo" class="navegacao__link">Processo</a></li>
         </ul>
       </nav>
 
-      <div class="header__actions">
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema claro/escuro" aria-pressed="false">
-          <svg class="icon icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <svg class="icon icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <div class="cabecalho__acoes">
+        <div class="seletor-paleta">
+          <button class="botao-paleta" id="abrirPaleta" type="button" aria-label="Selecionar paleta de cores" aria-expanded="false" aria-controls="opcoesCores">
+            <span aria-hidden="true"></span>
+          </button>
+          <div class="opcoes-cores" id="opcoesCores" role="group" aria-label="Opções de cores">
+            <button class="opcao-cor opcao-cor--azul" type="button" data-cor="azul" aria-label="Azul" aria-pressed="false"></button>
+            <button class="opcao-cor opcao-cor--vermelho" type="button" data-cor="vermelho" aria-label="Vermelho" aria-pressed="false"></button>
+            <button class="opcao-cor opcao-cor--verde" type="button" data-cor="verde" aria-label="Verde" aria-pressed="false"></button>
+            <button class="opcao-cor opcao-cor--amarelo" type="button" data-cor="amarelo" aria-label="Âmbar" aria-pressed="false"></button>
+            <button class="opcao-cor opcao-cor--monocromatico" type="button" data-cor="monocromatico" aria-label="Preto e branco" aria-pressed="false"></button>
+          </div>
+        </div>
+
+        <button class="alternador-tema" id="alternarTema" type="button" aria-label="Alternar tema claro/escuro" aria-pressed="false">
+          <svg class="icone icone-sol" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="icone icone-lua" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         </button>
 
-        <a href="#contato" class="btn btn--primary btn--small">Solicitar orçamento</a>
+        <a href="https://wa.me/5511999999999" class="botao botao--primario botao--pequeno" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a>
 
-        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+        <button class="alternador-menu" id="alternarMenu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navegacao">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -62,44 +74,41 @@
   <main id="inicio">
 
     <!-- ===================== HERO ===================== -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__grid" aria-hidden="true">
-        <span class="hero__node hero__node--1"></span>
-        <span class="hero__node hero__node--2"></span>
-        <span class="hero__node hero__node--3"></span>
-        <svg class="hero__lines" viewBox="0 0 800 600" preserveAspectRatio="none">
+    <section class="destaque" aria-labelledby="titulo">
+      <div class="destaque__grade" aria-hidden="true">
+        <span class="destaque__no destaque__no--1"></span>
+        <span class="destaque__no destaque__no--2"></span>
+        <span class="destaque__no destaque__no--3"></span>
+        <svg class="destaque__linhas" viewBox="0 0 800 600" preserveAspectRatio="none">
           <path d="M40 480 C 220 380, 300 500, 460 320 S 700 200, 760 120" />
         </svg>
       </div>
 
-      <div class="container hero__inner">
-        <p class="eyebrow">Desenvolvimento &amp; design digital</p>
-        <h1 id="hero-title" class="hero__title">
+      <div class="conteiner destaque__interno">
+        <p class="sobrancelha">Desenvolvimento &amp; design digital</p>
+        <h1 id="titulo" class="destaque__titulo">
           Transformamos ideias em experiências digitais extraordinárias.
         </h1>
-        <p class="hero__subtitle">
-          A SHIFT une engenharia de software e design estratégico para criar sites,
-          sistemas e produtos digitais que geram resultado real para o seu negócio.
-        </p>
-        <div class="hero__actions">
-          <a href="#contato" class="btn btn--primary">Solicitar orçamento</a>
-          <a href="#servicos" class="btn btn--ghost">Conhecer serviços</a>
+        <p class="destaque__subtitulo">Criamos sites, sistemas e produtos digitais que fazem seu negócio crescer.</p>
+        <div class="destaque__acoes">
+          <a href="https://wa.me/5511999999999" class="botao botao--primario" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a>
+          <a href="#servicos" class="botao botao--transparente">Conhecer serviços</a>
         </div>
       </div>
     </section>
 
     <!-- ===================== SOBRE ===================== -->
-    <section class="section" id="sobre" aria-labelledby="sobre-title">
-      <div class="container about__grid">
-        <div class="about__text">
-          <p class="eyebrow">Sobre a SHIFT</p>
-          <h2 id="sobre-title">Tecnologia com propósito, design com direção</h2>
+    <section class="secao" id="sobre" aria-labelledby="titulo-sobre">
+      <div class="conteiner sobre__grade">
+        <div class="sobre__texto">
+          <p class="sobrancelha">Sobre a SHIFT</p>
+          <h2 id="titulo-sobre">Tecnologia com propósito, design com direção</h2>
           <p>
             Somos uma agência digital formada por desenvolvedores, designers e estrategistas
             dedicados a construir produtos digitais sólidos, bonitos e que funcionam de verdade.
             Cada projeto nasce de um problema real do cliente — não de um modelo pronto.
           </p>
-          <div class="about__cols">
+          <div class="sobre__colunas">
             <div>
               <h3>Missão</h3>
               <p>Traduzir objetivos de negócio em soluções digitais claras, rápidas e escaláveis.</p>
@@ -114,63 +123,63 @@
             </div>
           </div>
         </div>
-        <div class="about__visual" aria-hidden="true">
-          <div class="about__card about__card--1">
-            <span class="dot dot--blue"></span>
-            <div class="bar bar--long"></div>
-            <div class="bar bar--mid"></div>
-            <div class="bar bar--short"></div>
+        <div class="sobre__visual" aria-hidden="true">
+          <div class="sobre__cartao sobre__cartao--1">
+            <span class="ponto ponto--azul"></span>
+            <div class="barra barra--longa"></div>
+            <div class="barra barra--media"></div>
+            <div class="barra barra--curta"></div>
           </div>
-          <div class="about__card about__card--2">
-            <span class="dot dot--dark"></span>
-            <div class="bar bar--mid"></div>
-            <div class="bar bar--long"></div>
+          <div class="sobre__cartao sobre__cartao--2">
+            <span class="ponto ponto--escuro"></span>
+            <div class="barra barra--media"></div>
+            <div class="barra barra--longa"></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===================== SERVIÇOS ===================== -->
-    <section class="section section--muted" id="servicos" aria-labelledby="servicos-title">
-      <div class="container">
-        <div class="section__head">
-          <p class="eyebrow">O que fazemos</p>
-          <h2 id="servicos-title">Serviços</h2>
+    <section class="secao secao--suave" id="servicos" aria-labelledby="titulo-servicos">
+      <div class="conteiner">
+        <div class="secao__cabecalho">
+          <p class="sobrancelha">O que fazemos</p>
+          <h2 id="titulo-servicos">Serviços</h2>
         </div>
 
-        <div class="cards-grid">
-          <article class="service-card">
-            <svg class="service-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <div class="grade-cartoes">
+          <article class="cartao-servico">
+            <svg class="cartao-servico__icone" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <h3>Desenvolvimento de sites</h3>
             <p>Sites institucionais rápidos, responsivos e otimizados para converter visitantes em clientes.</p>
           </article>
 
-          <article class="service-card">
-            <svg class="service-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 18.5h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <article class="cartao-servico">
+            <svg class="cartao-servico__icone" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 18.5h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <h3>Aplicativos mobile</h3>
             <p>Apps nativos e híbridos com foco em performance e experiência de uso fluida.</p>
           </article>
 
-          <article class="service-card">
-            <svg class="service-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 7l8 4 8-4M12 11v10" stroke="currentColor" stroke-width="1.5"/></svg>
+          <article class="cartao-servico">
+            <svg class="cartao-servico__icone" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 7l8 4 8-4M12 11v10" stroke="currentColor" stroke-width="1.5"/></svg>
             <h3>Sistemas web</h3>
             <p>Plataformas e painéis sob medida para automatizar processos e organizar operações.</p>
           </article>
 
-          <article class="service-card">
-            <svg class="service-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 8h8M8 12h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <article class="cartao-servico">
+            <svg class="cartao-servico__icone" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 8h8M8 12h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <h3>Landing pages</h3>
             <p>Páginas de alta conversão, pensadas para campanhas e lançamentos de produto.</p>
           </article>
 
-          <article class="service-card">
-            <svg class="service-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="4.2" stroke="currentColor" stroke-width="1.5"/><path d="M15 15l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 9h5M9 6.5v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <article class="cartao-servico">
+            <svg class="cartao-servico__icone" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="4.2" stroke="currentColor" stroke-width="1.5"/><path d="M15 15l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 9h5M9 6.5v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
             <h3>E-commerce</h3>
             <p>Lojas virtuais rápidas, seguras e preparadas para escalar suas vendas online.</p>
           </article>
 
-          <article class="service-card">
-            <svg class="service-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <article class="cartao-servico">
+            <svg class="cartao-servico__icone" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <h3>UX/UI Design</h3>
             <p>Interfaces claras e intuitivas, construídas a partir de pesquisa e testes reais.</p>
           </article>
@@ -178,36 +187,85 @@
       </div>
     </section>
 
-    <!-- ===================== DIFERENCIAIS ===================== -->
-    <section class="section" id="diferenciais" aria-labelledby="diferenciais-title">
-      <div class="container">
-        <div class="section__head">
-          <p class="eyebrow">Por que a SHIFT</p>
-          <h2 id="diferenciais-title">Diferenciais</h2>
+    <!-- ===================== PORTFÓLIO ===================== -->
+    <section class="secao" id="portifolio" aria-labelledby="titulo-portifolio">
+      <div class="conteiner">
+        <div class="secao__cabecalho">
+          <p class="sobrancelha">Trabalhos recentes</p>
+          <h2 id="titulo-portifolio">Portfólio</h2>
         </div>
 
-        <div class="features-grid">
-          <div class="feature">
+        <div class="grade-portifolio">
+          <article class="cartao-portifolio">
+            <div class="cartao-portifolio__miniatura cartao-portifolio__miniatura--1" aria-hidden="true"></div>
+            <div class="cartao-portifolio__corpo">
+              <span class="cartao-portifolio__etiqueta">Institucional</span>
+              <h3>Grupo Vetta</h3>
+              <p>Site institucional para holding de investimentos, com foco em credibilidade.</p>
+              <span class="cartao-portifolio__acao">Ver projeto <span aria-hidden="true">→</span></span>
+            </div>
+          </article>
+          <article class="cartao-portifolio">
+            <div class="cartao-portifolio__miniatura cartao-portifolio__miniatura--2" aria-hidden="true"></div>
+            <div class="cartao-portifolio__corpo">
+              <span class="cartao-portifolio__etiqueta">E-commerce</span>
+              <h3>Norte Store</h3>
+              <p>Loja virtual de moda com checkout otimizado e alta taxa de conversão.</p>
+              <span class="cartao-portifolio__acao">Ver projeto <span aria-hidden="true">→</span></span>
+            </div>
+          </article>
+          <article class="cartao-portifolio">
+            <div class="cartao-portifolio__miniatura cartao-portifolio__miniatura--3" aria-hidden="true"></div>
+            <div class="cartao-portifolio__corpo">
+              <span class="cartao-portifolio__etiqueta">Sistema web</span>
+              <h3>Fluxo ERP</h3>
+              <p>Painel de gestão interna para operação logística de médio porte.</p>
+              <span class="cartao-portifolio__acao">Ver projeto <span aria-hidden="true">→</span></span>
+            </div>
+          </article>
+          <article class="cartao-portifolio">
+            <div class="cartao-portifolio__miniatura cartao-portifolio__miniatura--4" aria-hidden="true"></div>
+            <div class="cartao-portifolio__corpo">
+              <span class="cartao-portifolio__etiqueta">App mobile</span>
+              <h3>Órbita Delivery</h3>
+              <p>Aplicativo de pedidos com rastreamento em tempo real para restaurantes.</p>
+              <span class="cartao-portifolio__acao">Ver projeto <span aria-hidden="true">→</span></span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DIFERENCIAIS ===================== -->
+    <section class="secao secao--suave" id="diferenciais" aria-labelledby="titulo-diferenciais">
+      <div class="conteiner">
+        <div class="secao__cabecalho">
+          <p class="sobrancelha">Por que a SHIFT</p>
+          <h2 id="titulo-diferenciais">Diferenciais</h2>
+        </div>
+
+        <div class="grade-diferenciais">
+          <div class="diferencial">
             <h3>Alta performance</h3>
             <p>Código otimizado para carregar rápido em qualquer dispositivo ou conexão.</p>
           </div>
-          <div class="feature">
+          <div class="diferencial">
             <h3>SEO otimizado</h3>
             <p>Estrutura semântica e boas práticas que ajudam seu site a ser encontrado.</p>
           </div>
-          <div class="feature">
+          <div class="diferencial">
             <h3>Design estratégico</h3>
             <p>Cada decisão visual serve a um objetivo claro de negócio.</p>
           </div>
-          <div class="feature">
+          <div class="diferencial">
             <h3>Escalabilidade</h3>
             <p>Arquitetura preparada para crescer junto com a sua operação.</p>
           </div>
-          <div class="feature">
+          <div class="diferencial">
             <h3>Segurança</h3>
             <p>Boas práticas de segurança aplicadas desde a primeira linha de código.</p>
           </div>
-          <div class="feature">
+          <div class="diferencial">
             <h3>Suporte especializado</h3>
             <p>Acompanhamento próximo antes, durante e depois do lançamento.</p>
           </div>
@@ -215,111 +273,69 @@
       </div>
     </section>
 
-    <!-- ===================== PORTFÓLIO ===================== -->
-    <section class="section section--muted" id="portfolio" aria-labelledby="portfolio-title">
-      <div class="container">
-        <div class="section__head">
-          <p class="eyebrow">Trabalhos recentes</p>
-          <h2 id="portfolio-title">Portfólio</h2>
-        </div>
-
-        <div class="portfolio-grid">
-          <article class="portfolio-card">
-            <div class="portfolio-card__thumb portfolio-card__thumb--1" aria-hidden="true"></div>
-            <div class="portfolio-card__body">
-              <span class="portfolio-card__tag">Institucional</span>
-              <h3>Grupo Vetta</h3>
-              <p>Site institucional para holding de investimentos, com foco em credibilidade.</p>
-            </div>
-          </article>
-          <article class="portfolio-card">
-            <div class="portfolio-card__thumb portfolio-card__thumb--2" aria-hidden="true"></div>
-            <div class="portfolio-card__body">
-              <span class="portfolio-card__tag">E-commerce</span>
-              <h3>Norte Store</h3>
-              <p>Loja virtual de moda com checkout otimizado e alta taxa de conversão.</p>
-            </div>
-          </article>
-          <article class="portfolio-card">
-            <div class="portfolio-card__thumb portfolio-card__thumb--3" aria-hidden="true"></div>
-            <div class="portfolio-card__body">
-              <span class="portfolio-card__tag">Sistema web</span>
-              <h3>Fluxo ERP</h3>
-              <p>Painel de gestão interna para operação logística de médio porte.</p>
-            </div>
-          </article>
-          <article class="portfolio-card">
-            <div class="portfolio-card__thumb portfolio-card__thumb--4" aria-hidden="true"></div>
-            <div class="portfolio-card__body">
-              <span class="portfolio-card__tag">App mobile</span>
-              <h3>Órbita Delivery</h3>
-              <p>Aplicativo de pedidos com rastreamento em tempo real para restaurantes.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- ===================== PROCESSO ===================== -->
-    <section class="section" id="processo" aria-labelledby="processo-title">
-      <div class="container">
-        <div class="section__head">
-          <p class="eyebrow">Como trabalhamos</p>
-          <h2 id="processo-title">Processo de trabalho</h2>
+    <section class="secao" id="processo" aria-labelledby="titulo-processo">
+      <div class="conteiner">
+        <div class="secao__cabecalho">
+          <p class="sobrancelha">Como trabalhamos</p>
+          <h2 id="titulo-processo">Processo de trabalho</h2>
         </div>
 
-        <ol class="process-list">
-          <li><span class="process-list__index">01</span><div><h3>Descoberta</h3><p>Entendemos seu negócio, objetivos e desafios atuais.</p></div></li>
-          <li><span class="process-list__index">02</span><div><h3>Planejamento</h3><p>Definimos escopo, prazos e a estratégia do projeto.</p></div></li>
-          <li><span class="process-list__index">03</span><div><h3>Design</h3><p>Criamos as telas e a identidade visual da solução.</p></div></li>
-          <li><span class="process-list__index">04</span><div><h3>Desenvolvimento</h3><p>Construímos o produto com código limpo e testado.</p></div></li>
-          <li><span class="process-list__index">05</span><div><h3>Testes</h3><p>Validamos funcionalidade, performance e usabilidade.</p></div></li>
-          <li><span class="process-list__index">06</span><div><h3>Lançamento</h3><p>Publicamos o projeto e acompanhamos os primeiros dias no ar.</p></div></li>
-          <li><span class="process-list__index">07</span><div><h3>Suporte</h3><p>Damos continuidade com manutenção e evolução contínua.</p></div></li>
+        <ol class="lista-processo">
+          <li><span class="lista-processo__indice">01</span><div><h3>Descoberta</h3><p>Entendemos seu negócio, objetivos e desafios atuais.</p></div></li>
+          <li><span class="lista-processo__indice">02</span><div><h3>Planejamento</h3><p>Definimos escopo, prazos e a estratégia do projeto.</p></div></li>
+          <li><span class="lista-processo__indice">03</span><div><h3>Design</h3><p>Criamos as telas e a identidade visual da solução.</p></div></li>
+          <li><span class="lista-processo__indice">04</span><div><h3>Desenvolvimento</h3><p>Construímos o produto com código limpo e testado.</p></div></li>
+          <li><span class="lista-processo__indice">05</span><div><h3>Testes</h3><p>Validamos funcionalidade, performance e usabilidade.</p></div></li>
+          <li><span class="lista-processo__indice">06</span><div><h3>Lançamento</h3><p>Publicamos o projeto e acompanhamos os primeiros dias no ar.</p></div></li>
+          <li><span class="lista-processo__indice">07</span><div><h3>Suporte</h3><p>Damos continuidade com manutenção e evolução contínua.</p></div></li>
         </ol>
       </div>
     </section>
 
     <!-- ===================== ESTATÍSTICAS ===================== -->
-    <section class="stats" aria-label="Números da SHIFT">
-      <div class="container stats__grid">
-        <div class="stat">
-          <span class="stat__number" data-count="180">0</span><span class="stat__suffix">+</span>
+    <section class="estatisticas" aria-label="Números da SHIFT">
+      <div class="conteiner estatisticas__grade">
+        <div class="estatistica">
+          <span class="estatistica__numero" data-contagem="180">0</span><span class="estatistica__sufixo">+</span>
           <p>Projetos entregues</p>
         </div>
-        <div class="stat">
-          <span class="stat__number" data-count="95">0</span><span class="stat__suffix">+</span>
+        <div class="estatistica">
+          <span class="estatistica__numero" data-contagem="95">0</span><span class="estatistica__sufixo">+</span>
           <p>Clientes atendidos</p>
         </div>
-        <div class="stat">
-          <span class="stat__number" data-count="98">0</span><span class="stat__suffix">%</span>
+        <div class="estatistica">
+          <span class="estatistica__numero" data-contagem="98">0</span><span class="estatistica__sufixo">%</span>
           <p>Taxa de satisfação</p>
         </div>
-        <div class="stat">
-          <span class="stat__number" data-count="9">0</span><span class="stat__suffix">+</span>
+        <div class="estatistica">
+          <span class="estatistica__numero" data-contagem="9">0</span><span class="estatistica__sufixo">+</span>
           <p>Anos de experiência</p>
         </div>
       </div>
     </section>
 
     <!-- ===================== DEPOIMENTOS ===================== -->
-    <section class="section" id="depoimentos" aria-labelledby="depoimentos-title">
-      <div class="container">
-        <div class="section__head">
-          <p class="eyebrow">Quem confia na SHIFT</p>
-          <h2 id="depoimentos-title">Depoimentos</h2>
+    <section class="secao" id="depoimentos" aria-labelledby="titulo-depoimentos">
+      <div class="conteiner">
+        <div class="secao__cabecalho">
+          <p class="sobrancelha">Quem confia na SHIFT</p>
+          <h2 id="titulo-depoimentos">Depoimentos</h2>
         </div>
 
-        <div class="testimonials-grid">
-          <figure class="testimonial">
+        <div class="grade-depoimentos">
+          <figure class="depoimento">
+            <div class="depoimento__avaliacao" aria-label="Avaliação de 5 estrelas">★★★★★</div>
             <blockquote>A SHIFT entendeu exatamente o que precisávamos e entregou um site muito acima do que esperávamos.</blockquote>
             <figcaption><strong>Marina Costa</strong><span>Diretora de Marketing, Grupo Vetta</span></figcaption>
           </figure>
-          <figure class="testimonial">
+          <figure class="depoimento">
+            <div class="depoimento__avaliacao" aria-label="Avaliação de 5 estrelas">★★★★★</div>
             <blockquote>Processo transparente do início ao fim. O sistema que desenvolveram organizou toda a nossa operação.</blockquote>
             <figcaption><strong>Rafael Souza</strong><span>CEO, Fluxo Logística</span></figcaption>
           </figure>
-          <figure class="testimonial">
+          <figure class="depoimento">
+            <div class="depoimento__avaliacao" aria-label="Avaliação de 5 estrelas">★★★★★</div>
             <blockquote>Nossa loja virtual triplicou as vendas depois do redesign feito pela equipe da SHIFT.</blockquote>
             <figcaption><strong>Juliana Prado</strong><span>Fundadora, Norte Store</span></figcaption>
           </figure>
@@ -327,84 +343,30 @@
       </div>
     </section>
 
-    <!-- ===================== CTA FINAL ===================== -->
-    <section class="cta-final" aria-labelledby="cta-title">
-      <div class="container cta-final__inner">
-        <h2 id="cta-title">Pronto para dar o próximo passo digital?</h2>
-        <p>Vamos conversar sobre como transformar sua ideia em um produto digital de verdade.</p>
-        <a href="#contato" class="btn btn--primary btn--large">Solicitar orçamento</a>
-      </div>
-    </section>
-
-    <!-- ===================== CONTATO ===================== -->
-    <section class="section" id="contato" aria-labelledby="contato-title">
-      <div class="container contact__grid">
-        <div class="contact__intro">
-          <p class="eyebrow">Fale com a gente</p>
-          <h2 id="contato-title">Vamos construir seu próximo projeto</h2>
-          <p>Preencha o formulário e nossa equipe entrará em contato em até um dia útil.</p>
-        </div>
-
-        <form class="form" id="contactForm" novalidate>
-          <div class="form__row">
-            <div class="form__field">
-              <label for="name">Nome</label>
-              <input type="text" id="name" name="name" autocomplete="name" required>
-              <span class="form__error" id="nameError" role="alert"></span>
-            </div>
-            <div class="form__field">
-              <label for="email">E-mail</label>
-              <input type="email" id="email" name="email" autocomplete="email" required>
-              <span class="form__error" id="emailError" role="alert"></span>
-            </div>
-          </div>
-          <div class="form__row">
-            <div class="form__field">
-              <label for="phone">Telefone</label>
-              <input type="tel" id="phone" name="phone" autocomplete="tel" required>
-              <span class="form__error" id="phoneError" role="alert"></span>
-            </div>
-            <div class="form__field">
-              <label for="company">Empresa</label>
-              <input type="text" id="company" name="company" autocomplete="organization">
-            </div>
-          </div>
-          <div class="form__field">
-            <label for="message">Mensagem</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-            <span class="form__error" id="messageError" role="alert"></span>
-          </div>
-
-          <button type="submit" class="btn btn--primary btn--large form__submit">Enviar mensagem</button>
-          <p class="form__success" id="formSuccess" role="status" hidden>Mensagem enviada com sucesso! Em breve entraremos em contato.</p>
-        </form>
-      </div>
-    </section>
-
   </main>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <a href="#inicio" class="logo">
-          <span class="logo__mark">S</span>
-          <span class="logo__text">SHIFT<small>Agência Digital</small></span>
+  <footer class="rodape">
+    <div class="conteiner rodape__interno">
+      <div class="rodape__marca">
+        <a href="#inicio" class="marca">
+          <span class="marca__simbolo">S</span>
+          <span class="marca__texto">SHIFT<small>Agência Digital</small></span>
         </a>
         <p>Transformando ideias em experiências digitais extraordinárias.</p>
       </div>
 
-      <nav class="footer__links" aria-label="Links rápidos">
+      <nav class="rodape__ligacoes" aria-label="Links rápidos">
         <h3>Links rápidos</h3>
         <ul>
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#portfolio">Portfólio</a></li>
-          <li><a href="#contato">Contato</a></li>
+          <li><a href="#portifolio">Portfólio</a></li>
+          <li><a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
         </ul>
       </nav>
 
-      <div class="footer__social">
+      <div class="rodape__redes-sociais">
         <h3>Redes sociais</h3>
         <ul>
           <li><a href="#" aria-label="SHIFT no Instagram">Instagram</a></li>
@@ -413,15 +375,19 @@
         </ul>
       </div>
     </div>
-    <div class="container footer__bottom">
-      <p>&copy; <span id="year"></span> SHIFT Agência Digital. Todos os direitos reservados.</p>
+    <div class="conteiner rodape__inferior">
+      <p>&copy; <span id="ano"></span> SHIFT Agência Digital. Todos os direitos reservados.</p>
     </div>
   </footer>
 
   <!-- Botão voltar ao topo -->
-  <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">
+  <button class="voltar-ao-topo" id="voltarAoTopo" type="button" aria-label="Voltar ao topo">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
+
+  <a class="botao-whatsapp" href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 11.7a8.3 8.3 0 0 1-12.2 7.3L3.5 20.5 5 15.8A8.3 8.3 0 1 1 20.5 11.7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 7.8c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4 0 .6l-.5.7c.7 1.4 1.8 2.5 3.2 3.2l.7-.5c.2-.1.4-.1.6 0l1.8.8c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.8-.6.3-1.3.4-2 .2-2.7-.9-4.9-3.1-5.8-5.8-.2-.7-.1-1.4.2-2Z" fill="currentColor" stroke="none"/></svg>
+  </a>
 
   <script src="script.js"></script>
 </body>
