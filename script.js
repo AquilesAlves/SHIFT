@@ -6,236 +6,300 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ------------------------------------------------------------------
+     0. WHATSAPP — edite apenas estas duas linhas
+     Número no formato internacional, só dígitos (55 + DDD + número).
+  ------------------------------------------------------------------ */
+  var WHATSAPP_NUMBER = '5511999999999';
+  var WHATSAPP_MESSAGE = 'Olá! Vim pelo site da SHIFT e gostaria de solicitar um orçamento.';
+
+  document.querySelectorAll('[data-whatsapp]').forEach(function (link) {
+    link.setAttribute('href', 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_MESSAGE));
+  });
+
+  /* ------------------------------------------------------------------
      1. TEMA CLARO / ESCURO
      - Detecta preferência do sistema no primeiro acesso
      - Salva a escolha do usuário no LocalStorage
-     - Alterna o atributo data-tema no <html>
+     - Alterna o atributo data-theme no <html>
   ------------------------------------------------------------------ */
-  var elementoHtml = document.documentElement;
-  var alternarTema = document.getElementById('alternarTema');
-  var CHAVE_TEMA = 'shift-tema';
-  var abrirPaleta = document.getElementById('abrirPaleta');
-  var opcoesCores = document.getElementById('opcoesCores');
-  var opcoesCor = document.querySelectorAll('.opcao-cor');
-  var CHAVE_COR = 'shift-cor';
+  var htmlEl = document.documentElement;
+  var themeToggle = document.getElementById('themeToggle');
+  var THEME_KEY = 'shift-theme';
 
-  function aplicarTema(tema) {
-    elementoHtml.setAttribute('data-tema', tema);
-    alternarTema.setAttribute('aria-pressed', tema === 'dark' ? 'true' : 'false');
+  function applyTheme(theme) {
+    htmlEl.setAttribute('data-theme', theme);
+    themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
   }
 
-  function obterTemaInicial() {
-    var temaSalvo = localStorage.getItem(CHAVE_TEMA);
-    if (temaSalvo === 'light' || temaSalvo === 'dark') return temaSalvo;
-    var prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return prefereEscuro ? 'dark' : 'light';
+  function getInitialTheme() {
+    var saved = localStorage.getItem(THEME_KEY);
+    if (saved === 'light' || saved === 'dark') return saved;
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
   }
 
-  aplicarTema(obterTemaInicial());
+  applyTheme(getInitialTheme());
 
-  function aplicarCor(cor) {
-    elementoHtml.setAttribute('data-cor', cor);
-    opcoesCor.forEach(function (opcao) {
-      var estaSelecionada = opcao.getAttribute('data-cor') === cor;
-      opcao.classList.toggle('esta-selecionada', estaSelecionada);
-      opcao.setAttribute('aria-pressed', estaSelecionada ? 'true' : 'false');
-    });
-  }
-
-  function obterCorInicial() {
-    var corSalva = localStorage.getItem(CHAVE_COR);
-    var coresDisponiveis = ['azul', 'vermelho', 'verde', 'amarelo', 'monocromatico'];
-    return coresDisponiveis.indexOf(corSalva) > -1 ? corSalva : 'azul';
-  }
-
-  aplicarCor(obterCorInicial());
-
-  alternarTema.addEventListener('click', function () {
-    var temaAtual = elementoHtml.getAttribute('data-tema');
-    var proximoTema = temaAtual === 'dark' ? 'light' : 'dark';
-    aplicarTema(proximoTema);
-    localStorage.setItem(CHAVE_TEMA, proximoTema);
-  });
-
-  abrirPaleta.addEventListener('click', function () {
-    var estaAberta = opcoesCores.classList.toggle('esta-aberta');
-    abrirPaleta.setAttribute('aria-expanded', estaAberta ? 'true' : 'false');
-  });
-
-  opcoesCor.forEach(function (opcao) {
-    opcao.addEventListener('click', function () {
-      var cor = this.getAttribute('data-cor');
-      aplicarCor(cor);
-      localStorage.setItem(CHAVE_COR, cor);
-      opcoesCores.classList.remove('esta-aberta');
-      abrirPaleta.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  document.addEventListener('click', function (evento) {
-    if (!evento.target.closest('.seletor-paleta')) {
-      opcoesCores.classList.remove('esta-aberta');
-      abrirPaleta.setAttribute('aria-expanded', 'false');
-    }
+  themeToggle.addEventListener('click', function () {
+    var current = htmlEl.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem(THEME_KEY, next);
   });
 
   /* ------------------------------------------------------------------
      2. MENU MOBILE
   ------------------------------------------------------------------ */
-  var alternarMenu = document.getElementById('alternarMenu');
-  var navegacao = document.getElementById('navegacao');
+  var menuToggle = document.getElementById('menuToggle');
+  var nav = document.getElementById('nav');
 
-  alternarMenu.addEventListener('click', function () {
-    var estaAberto = navegacao.classList.toggle('esta-aberto');
-    alternarMenu.classList.toggle('esta-aberto', estaAberto);
-    alternarMenu.setAttribute('aria-expanded', estaAberto ? 'true' : 'false');
-    alternarMenu.setAttribute('aria-label', estaAberto ? 'Fechar menu' : 'Abrir menu');
+  menuToggle.addEventListener('click', function () {
+    var isOpen = nav.classList.toggle('is-open');
+    menuToggle.classList.toggle('is-open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
   });
 
   // Fecha o menu mobile ao clicar em um link
-  document.querySelectorAll('.navegacao__link').forEach(function (ligacao) {
-    ligacao.addEventListener('click', function () {
-      navegacao.classList.remove('esta-aberto');
-      alternarMenu.classList.remove('esta-aberto');
-      alternarMenu.setAttribute('aria-expanded', 'false');
+  document.querySelectorAll('.nav__link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      nav.classList.remove('is-open');
+      menuToggle.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
     });
   });
 
   /* ------------------------------------------------------------------
-     3. cabecalho DINÂMICO AO ROLAR + BOTÃO VOLTAR AO TOPO
+     3. HEADER DINÂMICO AO ROLAR + BOTÃO VOLTAR AO TOPO
   ------------------------------------------------------------------ */
-  var cabecalho = document.getElementById('cabecalho');
-  var voltarAoTopo = document.getElementById('voltarAoTopo');
+  var header = document.getElementById('header');
+  var backToTop = document.getElementById('backToTop');
 
-  function aoRolar() {
-    var posicaoRolagemY = window.scrollY || window.pageYOffset;
-    cabecalho.classList.toggle('esta-rolado', posicaoRolagemY > 10);
-    voltarAoTopo.classList.toggle('esta-visivel', posicaoRolagemY > 400);
-    atualizarLinkNavegacaoAtivo();
+  function onScroll() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    header.classList.toggle('is-scrolled', scrollY > 10);
+    backToTop.classList.toggle('is-visible', scrollY > 400);
+    updateActiveNavLink();
   }
 
-  window.addEventListener('scroll', aoRolar, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-  voltarAoTopo.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  backToTop.addEventListener('click', function () {
+    smoothScrollTo(0);
   });
 
   /* ------------------------------------------------------------------
      4. SCROLL SUAVE PARA ÂNCORAS INTERNAS
   ------------------------------------------------------------------ */
-  document.querySelectorAll('a[href^="#"]').forEach(function (ancora) {
-    ancora.addEventListener('click', function (evento) {
-      var idDestino = this.getAttribute('href');
-      if (idDestino.length < 2) return;
-      var destino = document.querySelector(idDestino);
-      if (!destino) return;
-      evento.preventDefault();
-      var alturaCabecalho = cabecalho.offsetHeight;
-      var posicaoTopo = destino.getBoundingClientRect().top + window.pageYOffset - alturaCabecalho + 1;
-      window.scrollTo({ top: posicaoTopo, behavior: 'smooth' });
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Animação de rolagem com aceleração/desaceleração suave
+  function smoothScrollTo(targetY, onDone) {
+    var startY = window.pageYOffset;
+    var distance = targetY - startY;
+
+    if (reduceMotion || Math.abs(distance) < 2) {
+      window.scrollTo(0, targetY);
+      if (onDone) onDone();
+      return;
+    }
+
+    // Duração proporcional à distância (entre 0,5s e 0,9s)
+    var duration = Math.min(900, Math.max(500, Math.abs(distance) * 0.4));
+    var startTime = null;
+
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else if (onDone) {
+        onDone();
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var targetId = this.getAttribute('href');
+      if (targetId.length < 2) return;
+      var target = document.querySelector(targetId);
+      if (!target) return;
+      e.preventDefault();
+
+      // Animação de clique no item do menu
+      if (this.classList.contains('nav__link')) {
+        this.classList.remove('is-clicked');
+        void this.offsetWidth; // reinicia a animação
+        this.classList.add('is-clicked');
+      }
+
+      var top = target.getBoundingClientRect().top + window.pageYOffset - header.offsetHeight + 1;
+
+      smoothScrollTo(Math.max(0, top), function () {
+        // Ao chegar, dá um pequeno destaque na linha de comando da seção
+        var prompt = target.querySelector('.prompt');
+        if (prompt) {
+          prompt.classList.remove('is-flash');
+          void prompt.offsetWidth; // reinicia a animação
+          prompt.classList.add('is-flash');
+        }
+      });
     });
   });
 
   /* ------------------------------------------------------------------
      5. DESTAQUE AUTOMÁTICO DO ITEM ATIVO DO MENU
   ------------------------------------------------------------------ */
-  var secoes = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
-  var linksNavegacao = Array.prototype.slice.call(document.querySelectorAll('.navegacao__link'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav__link'));
 
-  function atualizarLinkNavegacaoAtivo() {
-    var posicaoRolagem = window.scrollY + cabecalho.offsetHeight + 40;
-    var idAtual = null;
+  function updateActiveNavLink() {
+    var scrollPos = window.scrollY + header.offsetHeight + 40;
+    var currentId = null;
 
-    secoes.forEach(function (secao) {
-      if (posicaoRolagem >= secao.offsetTop) {
-        idAtual = secao.id;
+    sections.forEach(function (section) {
+      if (scrollPos >= section.offsetTop) {
+        currentId = section.id;
       }
     });
 
-    linksNavegacao.forEach(function (ligacao) {
-      var estaAtivo = ligacao.getAttribute('href') === '#' + idAtual;
-      ligacao.classList.toggle('esta-ativo', estaAtivo);
+    navLinks.forEach(function (link) {
+      var isActive = link.getAttribute('href') === '#' + currentId;
+      link.classList.toggle('is-active', isActive);
     });
   }
-
-  // Executa depois que as seções e os links do menu foram definidos.
-  aoRolar();
 
   /* ------------------------------------------------------------------
-     6. CONTADORES ANIMADOS (eestatisticaísticas)
+     6. CONTADORES ANIMADOS (estatísticas)
      Só é iniciado quando a seção entra na tela (IntersectionObserver)
   ------------------------------------------------------------------ */
-  var numerosEstatisticas = document.querySelectorAll('.estatistica__numero');
+  var statNumbers = document.querySelectorAll('.stat__number');
 
-  function animarContador(elemento) {
-    var meta = parseInt(elemento.getAttribute('data-contagem'), 10) || 0;
-    var duracao = 1400;
-    var tempoInicial = null;
+  function animateCounter(el) {
+    var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+    var duration = 1400;
+    var startTime = null;
 
-    function etapa(marcaTempo) {
-      if (!tempoInicial) tempoInicial = marcaTempo;
-      var progresso = Math.min((marcaTempo - tempoInicial) / duracao, 1);
-      var progressoSuave = 1 - Math.pow(1 - progresso, 3); // ease-out cubic
-      elemento.textContent = Math.floor(progressoSuave * meta);
-      if (progresso < 1) {
-        requestAnimationFrame(etapa);
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) {
+        requestAnimationFrame(step);
       } else {
-        elemento.textContent = meta;
+        el.textContent = target;
       }
     }
-    requestAnimationFrame(etapa);
+    requestAnimationFrame(step);
   }
 
-  var observadorEstatisticas = new IntersectionObserver(function (entradas, observador) {
-    entradas.forEach(function (entrada) {
-      if (entrada.isIntersecting) {
-        numerosEstatisticas.forEach(animarContador);
-        observador.disconnect();
+  var statsObserver = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        statNumbers.forEach(animateCounter);
+        observer.disconnect();
       }
     });
   }, { threshold: 0.4 });
 
-  var secaoEstatisticas = document.querySelector('.estatisticas');
-  if (secaoEstatisticas) observadorEstatisticas.observe(secaoEstatisticas);
+  var statsSection = document.querySelector('.stats');
+  if (statsSection) statsObserver.observe(statsSection);
 
   /* ------------------------------------------------------------------
-     7. ANIMAÇÕES AO ENTRAR NA TELA (scroll revelar)
-     Adiciona a classe "revelar" via JS aos blocos principais
+     7. ANIMAÇÕES AO ENTRAR NA TELA (scroll reveal)
+     Adiciona a classe "reveal" via JS aos blocos principais
      e revela quando entram no viewport.
   ------------------------------------------------------------------ */
-  var elementosRevelar = document.querySelectorAll(
-    '.cartao-servico, .diferencial, .cartao-portifolio, .depoimento, .sobre__texto, .sobre__visual, .lista-processo li'
+  var revealTargets = document.querySelectorAll(
+    '.service-card, .feature, .portfolio-card, .testimonial, .box, .process-list li'
   );
 
-  elementosRevelar.forEach(function (elemento) { elemento.classList.add('revelar'); });
+  revealTargets.forEach(function (el) { el.classList.add('reveal'); });
 
-  var observadorRevelar = new IntersectionObserver(function (entradas, observador) {
-    entradas.forEach(function (entrada) {
-      if (entrada.isIntersecting) {
-        entrada.target.classList.add('esta-visivel');
-        observador.unobserve(entrada.target);
+  var revealObserver = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        el.classList.add('is-visible');
+        observer.unobserve(el);
+        // Depois da animação, remove as classes para não conflitar com o hover
+        setTimeout(function () { el.classList.remove('reveal', 'is-visible'); }, 800);
       }
     });
   }, { threshold: 0.15 });
 
-  elementosRevelar.forEach(function (elemento) { observadorRevelar.observe(elemento); });
+  revealTargets.forEach(function (el) { revealObserver.observe(el); });
 
   /* ------------------------------------------------------------------
-     8. DESTAQUE DO WHATSAPP NA PRIMEIRA VISITA
+     10. TERMINAL DO HERO — efeito de digitação
+     Comandos (data-type="cmd") são digitados letra a letra;
+     as saídas (data-type="out") aparecem em sequência.
+     Respeita "prefers-reduced-motion" (mostra tudo de uma vez).
   ------------------------------------------------------------------ */
-  var botaoWhatsapp = document.querySelector('.botao-whatsapp');
-  var CHAVE_DESTAQUE_WHATSAPP = 'shift-destaque-whatsapp';
+  var heroTerm = document.getElementById('heroTerminal');
 
-  if (botaoWhatsapp && !localStorage.getItem(CHAVE_DESTAQUE_WHATSAPP)) {
-    botaoWhatsapp.classList.add('chamar-atencao');
-    localStorage.setItem(CHAVE_DESTAQUE_WHATSAPP, 'true');
-    setTimeout(function () { botaoWhatsapp.classList.remove('chamar-atencao'); }, 3200);
+  if (heroTerm && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var lines = Array.prototype.slice.call(heroTerm.querySelectorAll('.term__line'));
+    var texts = lines.map(function (l) { return l.textContent; });
+
+    // Esconde tudo e limpa o texto antes de começar
+    lines.forEach(function (l) { l.style.display = 'none'; l.textContent = ''; });
+
+    var index = 0;
+
+    function typeNextLine() {
+      if (index >= lines.length) return;
+
+      var line = lines[index];
+      var text = texts[index];
+      var isCmd = line.getAttribute('data-type') === 'cmd';
+      var isLast = index === lines.length - 1;
+      line.style.display = 'block';
+
+      // Última linha: apenas o cursor piscando
+      if (isLast) {
+        line.innerHTML = '<span class="cursor"></span>';
+        return;
+      }
+
+      if (!isCmd) {
+        // Saída: aparece de uma vez
+        line.textContent = text;
+        index++;
+        setTimeout(typeNextLine, 350);
+        return;
+      }
+
+      // Comando: digita caractere por caractere
+      var i = 0;
+      var timer = setInterval(function () {
+        line.textContent = text.slice(0, ++i);
+        if (i >= text.length) {
+          clearInterval(timer);
+          index++;
+          setTimeout(typeNextLine, 450);
+        }
+      }, 45);
+    }
+
+    setTimeout(typeNextLine, 600);
   }
 
   /* ------------------------------------------------------------------
      9. ANO ATUAL NO RODAPÉ
   ------------------------------------------------------------------ */
-  var elementoAno = document.getElementById('ano');
-  if (elementoAno) elementoAno.textContent = new Date().getFullYear();
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Estado inicial (roda por último, quando tudo já foi declarado)
+  onScroll();
 
 });
