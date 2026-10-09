@@ -79,6 +79,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var scrollY = window.scrollY || window.pageYOffset;
     header.classList.toggle('is-scrolled', scrollY > 10);
     backToTop.classList.toggle('is-visible', scrollY > 400);
+    // O WhatsApp sobe quando o botão de topo aparece
+    var wa = document.querySelector('.whatsapp-float');
+    if (wa) wa.classList.toggle('is-raised', scrollY > 400);
     updateActiveNavLink();
   }
 
@@ -104,18 +107,14 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Duração proporcional à distância (entre 0,5s e 0,9s)
-    var duration = Math.min(900, Math.max(500, Math.abs(distance) * 0.4));
+    // Velocidade constante (~2 px/ms); a duração só é limitada entre 0,45s e 1,3s
+    var duration = Math.min(1300, Math.max(450, Math.abs(distance) / 2));
     var startTime = null;
-
-    function easeInOutCubic(t) {
-      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
 
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
       var progress = Math.min((timestamp - startTime) / duration, 1);
-      window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+      window.scrollTo(0, startY + distance * progress); // linear: velocidade constante
       if (progress < 1) {
         requestAnimationFrame(step);
       } else if (onDone) {

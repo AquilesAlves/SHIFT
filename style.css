@@ -7,11 +7,12 @@
 
 /* ---------- Reset básico ---------- */
 *, *::before, *::after { box-sizing: border-box; }
+* { -webkit-tap-highlight-color: transparent; }  /* sem o flash azul ao tocar no celular */
 html, body { margin: 0; padding: 0; }
 img, svg { display: block; max-width: 100%; }
 ul, ol { list-style: none; margin: 0; padding: 0; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+a { color: inherit; text-decoration: none; touch-action: manipulation; }
+button { font: inherit; cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none; background: none; border: none; color: inherit; }
 input, textarea { font: inherit; }
 h1, h2, h3, p, figure, blockquote { margin: 0; }
 
@@ -29,7 +30,7 @@ html {
   --color-error: #D92D3A;
   --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
   --radius: 6px;
-  --transition-theme: background-color .35s ease, color .35s ease, border-color .35s ease;
+  --transition-theme: background-color .15s ease, color .15s ease, border-color .15s ease;
   color-scheme: light;
 }
 
@@ -238,7 +239,7 @@ html[data-theme="dark"] .icon-moon { display: block; }
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 22px;
-  transition: transform .2s ease, border-color .2s ease, background-color .35s ease;
+  transition: transform .2s ease, border-color .2s ease, background-color .15s ease;
 }
 .service-card:hover { transform: translateY(-3px); border-color: var(--color-primary); }
 .service-card__file { font-size: .75rem; color: var(--color-primary); margin-bottom: 14px; }
@@ -262,7 +263,7 @@ html[data-theme="dark"] .icon-moon { display: block; }
 .portfolio-card {
   background: var(--color-surface); border: 1px solid var(--color-border);
   border-radius: 10px; overflow: hidden;
-  transition: transform .2s ease, border-color .2s ease, background-color .35s ease;
+  transition: transform .2s ease, border-color .2s ease, background-color .15s ease;
 }
 .portfolio-card:hover { transform: translateY(-3px); border-color: var(--color-primary); }
 .portfolio-card__thumb {
@@ -320,11 +321,12 @@ html[data-theme="dark"] .icon-moon { display: block; }
    FOOTER
    ========================================================================== */
 .footer { background: var(--color-surface-muted); border-top: 1px solid var(--color-border); padding-top: 52px; transition: var(--transition-theme); }
-.footer__inner { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 36px; }
+.footer__inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding-bottom: 36px; justify-items: center; text-align: center; }
+.footer__brand { display: flex; flex-direction: column; align-items: center; }
 .footer__brand p { margin-top: 14px; max-width: 280px; font-size: .85rem; }
 .footer h3 { font-size: .78rem; color: var(--color-text-soft); margin-bottom: 14px; font-weight: 500; }
 .footer h3::before { content: "# "; color: var(--color-primary); }
-.footer ul { display: flex; flex-direction: column; gap: 8px; }
+.footer ul { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .footer__links a, .footer__social a { font-size: .85rem; color: var(--color-text-soft); transition: color .2s ease; }
 .footer__links a:hover, .footer__social a:hover { color: var(--color-primary); }
 .footer__bottom { border-top: 1px solid var(--color-border); padding-block: 18px; }
@@ -333,18 +335,6 @@ html[data-theme="dark"] .icon-moon { display: block; }
 /* ==========================================================================
    VOLTAR AO TOPO
    ========================================================================== */
-.back-to-top {
-  position: fixed; right: 27px; bottom: 90px;
-  width: 46px; height: 46px; display: grid; place-items: center;
-  background: var(--color-primary); color: #fff;
-  border-radius: 12px;
-  opacity: 0; visibility: hidden; transform: translateY(10px);
-  transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
-  z-index: 400;
-}
-html[data-theme="dark"] .back-to-top { color: #0A0E14; }
-.back-to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
-
 /* ==========================================================================
    ANIMAÇÃO DE ENTRADA
    ========================================================================== */
@@ -363,6 +353,7 @@ html[data-theme="dark"] .back-to-top { color: #0A0E14; }
   .hero__inner { grid-template-columns: 1fr; }
   .about__cols, .cards-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
   .footer__inner { grid-template-columns: 1fr 1fr; }
+  .footer__social { grid-column: 1 / -1; }  /* terceira coluna centralizada embaixo */
 }
 
 @media (max-width: 768px) {
@@ -396,8 +387,10 @@ html[data-theme="dark"] .back-to-top { color: #0A0E14; }
   background: #25D366; color: #fff;
   box-shadow: 0 8px 24px rgba(37, 211, 102, .4);
   animation: waPulse 2.6s ease-out infinite;
-  transition: transform .2s ease;
+  transition: transform .2s ease, bottom .3s ease;
 }
+/* Quando o botão de topo aparece, o WhatsApp sobe e abre espaço para ele */
+.whatsapp-float.is-raised { bottom: 96px; }
 .whatsapp-float:hover, .whatsapp-float:focus-visible { transform: translateY(-3px) scale(1.05); }
 @keyframes waPulse {
   0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, .5), 0 8px 24px rgba(37, 211, 102, .4); }
@@ -433,7 +426,7 @@ html[data-theme="dark"] .back-to-top { color: #0A0E14; }
 
   /* Cards: sobem, ganham borda azul e destaque no título */
   .box, .testimonial, .service-card, .portfolio-card {
-    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background-color .35s ease;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background-color .15s ease;
   }
   .box:hover, .testimonial:hover, .service-card:hover, .portfolio-card:hover {
     transform: translateY(-4px);
@@ -466,7 +459,7 @@ html[data-theme="dark"] .back-to-top { color: #0A0E14; }
   .stat:hover .stat__value { transform: scale(1.08); }
 
   /* Terminal do hero */
-  .hero__term { transition: border-color .3s ease, box-shadow .3s ease, background-color .35s ease; }
+  .hero__term { transition: border-color .3s ease, box-shadow .3s ease, background-color .15s ease; }
   .hero__term:hover { border-color: var(--color-primary); box-shadow: 0 18px 44px color-mix(in srgb, var(--color-primary) 22%, transparent); }
 
   /* Tags */
@@ -475,10 +468,9 @@ html[data-theme="dark"] .back-to-top { color: #0A0E14; }
 
   /* Footer */
   .footer__links a, .footer__social a { display: inline-block; transition: color .2s ease, transform .2s ease; }
-  .footer__links a:hover, .footer__social a:hover { transform: translateX(5px); }
+  .footer__links a:hover, .footer__social a:hover { transform: translateY(-2px); }
 
   /* Voltar ao topo */
-  .back-to-top:hover { transform: translateY(-3px); }
 }
 
 /* Animação ao clicar em um item do menu do header */
@@ -491,43 +483,71 @@ html[data-theme="dark"] .back-to-top { color: #0A0E14; }
 
 /* ==========================================================================
    LOGO — tecla de teclado mecânico com seta para cima
+   Estilo adaptado de um CSS de keycap: face clara em degradê, "parede" sólida
+   embaixo (--wall) e curso de 4px (--travel) ao pressionar.
+   As variáveis ficam no próprio .keycap (sem :root).
    ========================================================================== */
-.keycap {
-  position: relative;
-  width: 46px; height: 46px;
-  flex-shrink: 0;
-  margin-bottom: 5px;                 /* compensa a "altura" da tecla */
-  display: grid; place-items: center;
-  border-radius: 11px;
-  color: #fff;
-  /* topo da tecla: azul com leve degradê */
-  background: linear-gradient(160deg,
-    color-mix(in srgb, var(--color-primary) 80%, #fff),
-    var(--color-primary));
-  /* lateral (profundidade), sombra no chão e brilho na borda de cima */
-  box-shadow:
-    0 5px 0 color-mix(in srgb, var(--color-primary) 58%, #000),
-    0 9px 14px rgba(0, 0, 0, .3),
-    inset 0 1px 0 rgba(255, 255, 255, .45),
-    inset 0 -2px 0 rgba(0, 0, 0, .12);
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-/* "côncavo" da tecla (área onde o dedo apoia) */
-.keycap::after {
-  content: "";
-  position: absolute; inset: 5px;
-  border-radius: 7px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, .1), rgba(255, 255, 255, .14));
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .25);
-}
-.keycap__icon { position: relative; z-index: 1; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .35)); }
+.keycap, .back-to-top {
+  --cap-top: #ffffff;                 /* topo da face (tema claro) */
+  --cap-bot: #e7ebf3;                 /* base da face */
+  --wall-col: #a9b4c7;                /* cor da parede lateral */
+  --ground: rgba(40, 50, 70, .35);    /* sombra no "chão" */
+  --wall: 5px;                        /* altura da parede */
+  --travel: 3px;                      /* quanto a tecla desce ao apertar */
 
-/* Efeito de tecla sendo pressionada */
-.logo:hover .keycap, .logo:active .keycap {
-  transform: translateY(4px);
+  width: 46px; height: 43px;
+  flex-shrink: 0;
+  margin-bottom: var(--wall);         /* compensa a altura da parede */
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 13px;
+  color: var(--color-primary);        /* a seta usa o azul da marca */
+  background: linear-gradient(180deg, var(--cap-top) 0%, var(--cap-bot) 100%);
   box-shadow:
-    0 1px 0 color-mix(in srgb, var(--color-primary) 58%, #000),
-    0 3px 6px rgba(0, 0, 0, .25),
-    inset 0 1px 0 rgba(255, 255, 255, .45),
-    inset 0 -2px 0 rgba(0, 0, 0, .12);
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    inset 0 -2px 3px rgba(22, 35, 60, .14),
+    0 var(--wall) 0 var(--wall-col),
+    0 calc(var(--wall) + 6px) 14px var(--ground);
+  transition: transform 110ms cubic-bezier(.3, .7, .4, 1), box-shadow 110ms cubic-bezier(.3, .7, .4, 1);
 }
+html[data-theme="dark"] .keycap, html[data-theme="dark"] .back-to-top {
+  --cap-top: #f4f6fb;
+  --cap-bot: #d8deea;
+  --wall-col: #94a0b8;
+  --ground: rgba(4, 9, 20, .55);
+}
+
+/* Tecla pressionada: desce e a parede "colapsa" */
+.logo:hover .keycap, .logo:active .keycap, .logo:focus-visible .keycap,
+.back-to-top:hover, .back-to-top:active, .back-to-top:focus-visible {
+  transform: translateY(var(--travel));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .7),
+    inset 0 -1px 2px rgba(22, 35, 60, .2),
+    0 calc(var(--wall) - var(--travel)) 0 var(--wall-col),
+    0 calc(var(--wall) - var(--travel) + 3px) 6px var(--ground);
+}
+
+/* Seta maior dentro da tecla */
+.keycap__icon { width: 30px; height: 30px; }
+
+/* ==========================================================================
+   BOTÃO VOLTAR AO TOPO — mesma tecla do logo (tamanho próprio)
+   Os visuais (face, parede, sombra, apertar) vêm das regras do .keycap acima.
+   ========================================================================== */
+.back-to-top {
+  position: fixed; right: 27px; bottom: 28px; z-index: 400;
+  width: 46px; height: 46px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 13px;
+  border: 0; cursor: pointer;
+  /* aparece/some com fade; o "apertar" usa o transform da tecla */
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .25s ease, visibility .25s ease,
+              transform 110ms cubic-bezier(.3, .7, .4, 1), box-shadow 110ms cubic-bezier(.3, .7, .4, 1);
+}
+.back-to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+/* o estado "apertado" precisa vir depois do .is-visible para vencer o transform */
+.back-to-top.is-visible:hover, .back-to-top.is-visible:active, .back-to-top.is-visible:focus-visible {
+  transform: translateY(var(--travel));
+}
+.back-to-top svg { width: 30px; height: 30px; }
