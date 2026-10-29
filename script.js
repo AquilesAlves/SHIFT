@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
      0. WHATSAPP — edite apenas estas duas linhas
      Número no formato internacional, só dígitos (55 + DDD + número).
   ------------------------------------------------------------------ */
-  var WHATSAPP_NUMBER = '5511999999999';
+  var WHATSAPP_NUMBER = '5511994118480';
   var WHATSAPP_MESSAGE = 'Olá! Vim pelo site da SHIFT e gostaria de solicitar um orçamento.';
 
   document.querySelectorAll('[data-whatsapp]').forEach(function (link) {
